@@ -8,7 +8,7 @@ import Button from '../components/Button';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setCurrentUser } = useJobPortal();
+  const { loginUser } = useJobPortal();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -34,7 +34,7 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -58,17 +58,13 @@ const Login = () => {
       return;
     }
 
-    // Simulate authentication
-    if (formData.email === 'test@example.com' && formData.password === 'wrongpass') {
-      setStatus({ type: 'danger', message: 'Invalid email or password.' });
-    } else {
-      setCurrentUser(prev => ({ ...prev, isLoggedIn: true }));
+    const res = await loginUser(formData.email, formData.password);
+    if (res.success) {
       setStatus({ type: 'success', message: 'Login successful! Welcome back.' });
       setErrors({});
-      // Simulate redirect to dashboard
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
+      setTimeout(() => navigate('/'), 1500);
+    } else {
+      setStatus({ type: 'danger', message: res.message || 'Login failed' });
     }
   };
 

@@ -6,7 +6,7 @@ import ThemeToggle from './ThemeToggle';
 const Navbar = () => {
   const { 
     currentUser, 
-    setCurrentUser,
+    logoutUser,
     notifications, 
     markNotificationRead, 
     markAllNotificationsRead,
@@ -208,7 +208,7 @@ const Navbar = () => {
                   </div>
                 </Link>
                 <button 
-                  onClick={() => setCurrentUser(prev => ({ ...prev, isLoggedIn: false }))} 
+                  onClick={logoutUser} 
                   className="btn btn-sm btn-outline-secondary rounded-pill"
                   title="Logout"
                 >

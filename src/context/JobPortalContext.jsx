@@ -39,13 +39,78 @@ export const JobPortalProvider = ({ children }) => {
   };
 
   // 1. Authentication State
-  const [currentUser, setCurrentUser] = useState({
-    id: 1,
-    name: 'Anil Kumar',
-    email: 'anil@example.com',
-    isLoggedIn: false,
-    role: 'jobseeker' // 'jobseeker' or 'recruiter'
+  const [currentUser, setCurrentUser] = useState(() => {
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+      try {
+        const parsed = JSON.parse(userInfo);
+        return { ...parsed, isLoggedIn: true, id: parsed._id || 1 };
+      } catch(e) { }
+    }
+    return {
+      id: 1,
+      name: 'Anil Kumar',
+      email: 'anil@example.com',
+      isLoggedIn: false,
+      role: 'jobseeker' // 'jobseeker' or 'recruiter'
+    };
   });
+
+  const loginUser = async (email, password) => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const user = { ...data, isLoggedIn: true, id: data._id };
+        setCurrentUser(user);
+        localStorage.setItem('userInfo', JSON.stringify(user));
+        return { success: true };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (error) {
+      console.error('Login error', error);
+      return { success: false, message: 'Server error. Please ensure backend is running.' };
+    }
+  };
+
+  const registerUser = async (name, email, password, role) => {
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, role })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const user = { ...data, isLoggedIn: true, id: data._id };
+        setCurrentUser(user);
+        localStorage.setItem('userInfo', JSON.stringify(user));
+        return { success: true };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (error) {
+      console.error('Register error', error);
+      return { success: false, message: 'Server error. Please ensure backend is running.' };
+    }
+  };
+
+  const logoutUser = () => {
+    localStorage.removeItem('userInfo');
+    setCurrentUser({
+      id: 1,
+      name: 'Guest User',
+      email: '',
+      isLoggedIn: false,
+      role: 'jobseeker'
+    });
+    showToast('Logged out successfully', 'success');
+  };
 
   const toggleRole = () => {
     setCurrentUser(prev => {
@@ -341,6 +406,9 @@ export const JobPortalProvider = ({ children }) => {
     hideToast,
     currentUser,
     setCurrentUser,
+    loginUser,
+    registerUser,
+    logoutUser,
     profile,
     updateProfile,
     savedJobs,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useJobPortal } from '../context/JobPortalContext';
 import AuthLayout from '../components/AuthLayout';
 import FormInput from '../components/FormInput';
 import PasswordInput from '../components/PasswordInput';
@@ -8,6 +9,7 @@ import Button from '../components/Button';
 
 const Register = () => {
   const navigate = useNavigate();
+  const { registerUser } = useJobPortal();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -47,7 +49,7 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -97,13 +99,16 @@ const Register = () => {
       return;
     }
 
-    // Simulate successful registration
-    setStatus({ type: 'success', message: 'Account created successfully! Redirecting to login...' });
-    setErrors({});
+    const role = formData.jobRole.toLowerCase() === 'recruiter' ? 'recruiter' : 'jobseeker';
+    const res = await registerUser(formData.fullName, formData.email, formData.password, role);
     
-    setTimeout(() => {
-      navigate('/login');
-    }, 2000);
+    if (res.success) {
+      setStatus({ type: 'success', message: 'Account created successfully! Redirecting...' });
+      setErrors({});
+      setTimeout(() => navigate('/dashboard'), 2000);
+    } else {
+      setStatus({ type: 'danger', message: res.message || 'Registration failed' });
+    }
   };
 
   return (
