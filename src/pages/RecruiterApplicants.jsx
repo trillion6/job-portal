@@ -4,6 +4,7 @@ import PageContainer from '../components/PageContainer';
 import Section from '../components/Section';
 import GlassCard from '../components/GlassCard';
 import Button from '../components/Button';
+import ApplicationStatusBadge from '../components/ApplicationStatusBadge';
 import { useJobPortal } from '../context/JobPortalContext';
 
 const RecruiterApplicants = () => {
@@ -41,7 +42,7 @@ const RecruiterApplicants = () => {
     <PageContainer>
       <Section className="py-4">
         <div className="mb-4">
-          <h1 className="h2 fw-bold mb-2">Applicants</h1>
+          <h1 className="h2 fw-bold mb-2 text-walnut">Applicants</h1>
           <p className="text-secondary fs-5 mb-0">Review applications for your job postings.</p>
         </div>
 
@@ -50,7 +51,7 @@ const RecruiterApplicants = () => {
             <div className="col-12 col-md-6">
               <input 
                 type="text" 
-                className="form-control form-control-material bg-light"
+                className="form-control form-control-material"
                 placeholder="Search by name or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -58,7 +59,7 @@ const RecruiterApplicants = () => {
             </div>
             <div className="col-12 col-md-6">
               <select 
-                className="form-select form-control-material bg-light"
+                className="form-select form-control-material"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -82,17 +83,15 @@ const RecruiterApplicants = () => {
                   <GlassCard className="p-4 border-standard shadow-sm h-100 d-flex flex-column">
                     <div className="d-flex justify-content-between align-items-start mb-3">
                       <div className="d-flex gap-3 align-items-center">
-                        <div className="bg-primary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center text-primary fw-bold" style={{ width: '50px', height: '50px', fontSize: '1.2rem' }}>
+                        <div className="bg-sage-subtle rounded-circle d-flex justify-content-center align-items-center text-sage fw-bold border border-sage" style={{ width: '50px', height: '50px', fontSize: '1.2rem' }}>
                           {app.fullName.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <h5 className="fw-bold mb-1">{app.fullName}</h5>
+                          <h5 className="fw-bold mb-1 text-dark">{app.fullName}</h5>
                           <p className="text-meta text-secondary mb-0">{app.email}</p>
                         </div>
                       </div>
-                      <span className={`badge bg-${app.status === 'Applied' ? 'info' : app.status === 'Selected' ? 'success' : app.status === 'Rejected' ? 'danger' : 'warning text-dark'} bg-opacity-10 text-${app.status === 'Applied' ? 'info' : app.status === 'Selected' ? 'success' : app.status === 'Rejected' ? 'danger' : 'warning text-dark'} p-2 rounded-pill`}>
-                        {app.status}
-                      </span>
+                      <ApplicationStatusBadge status={app.status} />
                     </div>
 
                     <div className="mb-4">

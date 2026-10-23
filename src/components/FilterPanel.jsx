@@ -29,7 +29,7 @@ const FilterPanel = ({ filters, onFilterChange }) => {
     
     return (
       <div className="mb-4">
-        <label className="text-label mb-2 d-block fw-bold text-dark">{title}</label>
+        <label className="text-label mb-2 d-block fw-bold">{title}</label>
         <div className="d-flex flex-column gap-2">
           {options.map((option) => (
             <div className="form-check" key={`${category}-${option}`}>

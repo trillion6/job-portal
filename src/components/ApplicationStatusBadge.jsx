@@ -1,34 +1,34 @@
 import React from 'react';
-import Badge from './Badge';
 
 const ApplicationStatusBadge = ({ status }) => {
-  let variant = 'secondary';
+  let badgeClass = 'status-info';
   
   switch (status) {
     case 'Applied':
-      variant = 'info';
+      badgeClass = 'status-info';
       break;
     case 'Under Review':
-      variant = 'warning';
+    case 'Pending':
+      badgeClass = 'status-warning';
       break;
     case 'Shortlisted':
     case 'Interview':
-      variant = 'primary';
+      badgeClass = 'badge-sage';
       break;
     case 'Selected':
-      variant = 'success';
+      badgeClass = 'status-success';
       break;
     case 'Rejected':
-      variant = 'danger';
+      badgeClass = 'status-error';
       break;
     default:
-      variant = 'secondary';
+      badgeClass = 'badge-walnut';
   }
 
   return (
-    <Badge variant={variant} className={`bg-opacity-10 text-${variant} border border-${variant} border-opacity-25`}>
+    <span className={`status-badge ${badgeClass}`}>
       {status}
-    </Badge>
+    </span>
   );
 };
 

@@ -4,19 +4,31 @@ import PageContainer from '../components/PageContainer';
 import Section from '../components/Section';
 import GlassCard from '../components/GlassCard';
 import Button from '../components/Button';
+import StatusBadge from '../components/StatusBadge';
 import { useJobPortal } from '../context/JobPortalContext';
 
-const DashboardStatCard = ({ icon, title, value, variant = "primary" }) => (
-  <GlassCard className="p-4 h-100 border-standard shadow-sm d-flex align-items-center gap-3">
-    <div className={`bg-${variant} bg-opacity-10 text-${variant} rounded p-3 d-flex justify-content-center align-items-center fs-3`}>
-      {icon}
-    </div>
-    <div>
-      <p className="text-meta mb-1">{title}</p>
-      <h3 className="fw-bold mb-0 text-dark">{value}</h3>
-    </div>
-  </GlassCard>
-);
+const DashboardStatCard = ({ icon, title, value, variant = "primary" }) => {
+  const getBadgeClass = () => {
+    switch (variant) {
+      case 'success': return 'bg-success text-success border border-success';
+      case 'warning': return 'bg-warning text-warning border border-warning';
+      case 'info': return 'bg-info text-info border border-info';
+      default: return 'bg-sage-subtle text-sage border border-sage';
+    }
+  };
+
+  return (
+    <GlassCard className="p-4 h-100 border-standard shadow-sm d-flex align-items-center gap-3">
+      <div className={`rounded p-3 d-flex justify-content-center align-items-center fs-3 ${getBadgeClass()}`} style={{ width: '56px', height: '56px' }}>
+        {icon}
+      </div>
+      <div>
+        <p className="text-meta mb-1">{title}</p>
+        <h3 className="fw-bold mb-0 text-dark">{value}</h3>
+      </div>
+    </GlassCard>
+  );
+};
 
 const RecruiterDashboard = () => {
   const { currentUser, company, jobs, applications, recruiterActivity } = useJobPortal();
@@ -43,7 +55,7 @@ const RecruiterDashboard = () => {
         {/* Welcome Section */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-4">
           <div>
-            <h1 className="h2 fw-bold mb-2">Welcome, {currentUser.name.split(' ')[0]} 👋</h1>
+            <h1 className="h2 fw-bold mb-2 text-walnut">Welcome, {currentUser.name.split(' ')[0]} 👋</h1>
             <p className="text-secondary fs-5 mb-0">Manage your company profile, post jobs, and find the perfect candidates.</p>
           </div>
           <div className="d-flex gap-2">
@@ -95,8 +107,8 @@ const RecruiterDashboard = () => {
           {/* Main Content Area - Recent Jobs */}
           <div className="col-12 col-lg-8">
             <div className="d-flex justify-content-between align-items-center mb-4">
-              <h4 className="fw-bold mb-0">Recent Job Postings</h4>
-              <Link to="/recruiter/jobs" className="text-decoration-none fw-medium text-primary text-sm">
+              <h4 className="fw-bold mb-0 text-walnut">Recent Job Postings</h4>
+              <Link to="/recruiter/jobs" className="text-decoration-none fw-semibold text-amber text-sm hover-primary">
                 View All <i className="bi bi-arrow-right"></i>
               </Link>
             </div>
@@ -107,11 +119,11 @@ const RecruiterDashboard = () => {
                   <GlassCard key={job.id} className="p-4 border-standard shadow-sm">
                     <div className="d-flex justify-content-between align-items-start flex-wrap gap-3">
                       <div className="d-flex gap-3 align-items-center">
-                        <div className="bg-light rounded p-2 d-flex align-items-center justify-content-center" style={{ width: '50px', height: '50px' }}>
-                          <span className="fw-bold fs-4 text-primary">{job.companyLogo}</span>
+                        <div className="bg-sage-subtle rounded p-2 d-flex align-items-center justify-content-center border border-standard" style={{ width: '50px', height: '50px' }}>
+                          <span className="fw-bold fs-4 text-sage">{job.companyLogo}</span>
                         </div>
                         <div>
-                          <h5 className="fw-bold mb-1">{job.title}</h5>
+                          <h5 className="fw-bold mb-1 text-dark">{job.title}</h5>
                           <div className="d-flex gap-3 text-meta text-secondary">
                             <span><i className="bi bi-geo-alt me-1"></i>{job.location}</span>
                             <span><i className="bi bi-briefcase me-1"></i>{job.jobType}</span>
@@ -119,9 +131,7 @@ const RecruiterDashboard = () => {
                         </div>
                       </div>
                       <div className="d-flex align-items-center gap-3">
-                        <span className={`badge ${job.status === 'Active' ? 'bg-success' : 'bg-secondary'} bg-opacity-10 text-${job.status === 'Active' ? 'success' : 'secondary'} p-2 rounded-pill`}>
-                          {job.status}
-                        </span>
+                        <StatusBadge status={job.status} />
                         <Link to={`/recruiter/jobs/${job.id}/edit`}>
                           <Button variant="outline-primary" size="sm">Edit</Button>
                         </Link>

@@ -1,9 +1,38 @@
 import React from 'react';
 
-const Badge = ({ children, variant = 'primary', className = '', ...props }) => {
-  // Use bootstrap badge but apply our own minimal aesthetic (pills)
+const Badge = ({ children, variant = 'sage', className = '', ...props }) => {
+  let badgeStyle = 'badge-sage';
+
+  switch (variant) {
+    case 'primary':
+    case 'amber':
+      badgeStyle = 'badge-amber';
+      break;
+    case 'walnut':
+      badgeStyle = 'badge-walnut';
+      break;
+    case 'success':
+      badgeStyle = 'status-success';
+      break;
+    case 'warning':
+      badgeStyle = 'status-warning';
+      break;
+    case 'danger':
+    case 'error':
+      badgeStyle = 'status-error';
+      break;
+    case 'info':
+      badgeStyle = 'status-info';
+      break;
+    case 'secondary':
+    case 'sage':
+    default:
+      badgeStyle = 'badge-sage';
+      break;
+  }
+
   return (
-    <span className={`badge rounded-pill bg-${variant} bg-opacity-10 text-${variant} px-3 py-2 fw-medium ${className}`} {...props}>
+    <span className={`status-badge ${badgeStyle} ${className}`} {...props}>
       {children}
     </span>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import PageContainer from '../components/PageContainer';
 import Section from '../components/Section';
 import Button from '../components/Button';
@@ -22,13 +22,13 @@ const JobDetails = () => {
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [jobReported, setJobReported] = useState(false);
   
-  const jobId = parseInt(id, 10);
+  const jobId = id;
   const saved = isJobSaved(jobId);
   const applied = hasAppliedForJob(jobId);
 
   useEffect(() => {
     // Find job
-    const foundJob = jobs.find(j => j.id === jobId);
+    const foundJob = jobs.find(j => String(j.id || j._id) === String(jobId));
     setJob(foundJob);
     
     // Find company details
@@ -40,7 +40,7 @@ const JobDetails = () => {
     // Find related jobs (same category, excluding current job)
     if (foundJob) {
       const related = jobs
-        .filter(j => j.category === foundJob.category && j.id !== jobId)
+        .filter(j => j.category === foundJob.category && String(j.id || j._id) !== String(jobId))
         .slice(0, 3);
       setRelatedJobs(related);
     }
@@ -77,25 +77,25 @@ const JobDetails = () => {
           <div className="row align-items-center">
             <div className="col-md-8">
               <div className="d-flex align-items-center gap-3 mb-2">
-                <div className="bg-primary bg-opacity-10 text-primary fw-bold rounded d-flex justify-content-center align-items-center" style={{ width: '60px', height: '60px', fontSize: '24px' }}>
+                <div className="bg-sage-subtle text-sage fw-bold rounded d-flex justify-content-center align-items-center border border-standard" style={{ width: '60px', height: '60px', fontSize: '24px' }}>
                   {job.companyLogo || job.company.substring(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <div className="d-flex align-items-center gap-2">
-                    <h1 className="h3 fw-bold mb-1">{job.title}</h1>
-                    {job.featured && <Badge variant="warning">Featured</Badge>}
+                    <h1 className="h3 fw-bold mb-1 text-walnut">{job.title}</h1>
+                    {job.featured && <Badge variant="amber">Featured</Badge>}
                   </div>
                   <div className="d-flex align-items-center gap-2">
-                    <p className="text-primary fs-5 mb-0">{job.company}</p>
+                    <p className="text-walnut fs-5 fw-semibold mb-0">{job.company}</p>
                     {companyDetails?.status === 'Approved' && (
-                      <i className="bi bi-patch-check-fill text-primary" title="Verified Company" style={{fontSize: '1.2rem'}}></i>
+                      <i className="bi bi-patch-check-fill text-sage" title="Verified Company" style={{fontSize: '1.2rem'}}></i>
                     )}
                   </div>
                 </div>
               </div>
               <div className="d-flex flex-wrap align-items-center text-secondary gap-3 mt-3">
                 <span className="d-flex align-items-center gap-1"><span role="img" aria-label="location">📍</span> {job.location}</span>
-                <span className="d-flex align-items-center gap-1"><span role="img" aria-label="salary">💵</span> {job.salary}</span>
+                <span className="d-flex align-items-center gap-1 fw-semibold text-dark"><span role="img" aria-label="salary">💵</span> {job.salary}</span>
                 <span className="d-flex align-items-center gap-1"><span role="img" aria-label="type">💼</span> {job.jobType}</span>
                 <span className="d-flex align-items-center gap-1"><span role="img" aria-label="experience">⏳</span> {job.experience}</span>
               </div>
@@ -105,16 +105,16 @@ const JobDetails = () => {
               <p className="text-meta mb-2">Posted {job.postedDate} • {job.applicants} applicants</p>
               <div className="d-flex gap-2 w-100 justify-content-md-end">
                 <Button 
-                  variant="light" 
-                  className={`border-standard px-4 flex-grow-1 flex-md-grow-0 ${saved ? 'text-danger' : 'text-secondary'}`}
+                  variant="outline-secondary" 
+                  className={`px-4 flex-grow-1 flex-md-grow-0 ${saved ? 'text-danger border-danger' : ''}`}
                   onClick={() => toggleSaveJob(job.id, job.title)}
                 >
                   {saved ? '♥ Saved' : '♡ Save Job'}
                 </Button>
                 {applied ? (
-                  <Button variant="success" className="px-4 flex-grow-1 flex-md-grow-0" disabled>
+                  <span className="status-badge status-success px-4 py-2 fs-6">
                     ✓ Applied
-                  </Button>
+                  </span>
                 ) : (
                   <Button 
                     variant="primary" 
@@ -122,7 +122,7 @@ const JobDetails = () => {
                     onClick={() => {
                       if (!currentUser.isLoggedIn) {
                         alert("Please log in to apply.");
-                        // Redirect logic would go here
+                        navigate('/login');
                       } else {
                         setShowApplyModal(true);
                       }
@@ -143,13 +143,13 @@ const JobDetails = () => {
           
           {/* Left Column (Job Description) */}
           <div className="col-lg-8">
-            <div className="bg-white p-4 rounded border border-standard shadow-sm h-100">
-              <h4 className="fw-bold mb-3 border-bottom pb-2">Job Description</h4>
+            <div className="minimal-card p-4 h-100">
+              <h4 className="fw-bold mb-3 border-bottom pb-2 text-walnut">Job Description</h4>
               <p className="text-body lh-lg mb-4">{job.description}</p>
               
               {job.responsibilities && (
                 <>
-                  <h5 className="fw-bold mb-3">Key Responsibilities</h5>
+                  <h5 className="fw-bold mb-3 text-walnut">Key Responsibilities</h5>
                   <ul className="text-body lh-lg mb-4 ps-3">
                     {job.responsibilities.map((item, idx) => <li key={idx} className="mb-2">{item}</li>)}
                   </ul>
@@ -158,7 +158,7 @@ const JobDetails = () => {
               
               {job.requirements && (
                 <>
-                  <h5 className="fw-bold mb-3">Requirements</h5>
+                  <h5 className="fw-bold mb-3 text-walnut">Requirements</h5>
                   <ul className="text-body lh-lg mb-4 ps-3">
                     {job.requirements.map((item, idx) => <li key={idx} className="mb-2">{item}</li>)}
                   </ul>
@@ -167,10 +167,10 @@ const JobDetails = () => {
               
               {job.preferredSkills && (
                 <>
-                  <h5 className="fw-bold mb-3">Preferred Skills</h5>
+                  <h5 className="fw-bold mb-3 text-walnut">Preferred Skills</h5>
                   <div className="d-flex flex-wrap gap-2 mb-4">
                     {job.preferredSkills.map((skill, idx) => (
-                      <Badge key={idx} variant="info" className="bg-opacity-10 text-info">
+                      <Badge key={idx} variant="sage">
                         {skill}
                       </Badge>
                     ))}
@@ -180,10 +180,10 @@ const JobDetails = () => {
 
               {job.skills && (
                 <>
-                  <h5 className="fw-bold mb-3">Core Skills</h5>
+                  <h5 className="fw-bold mb-3 text-walnut">Core Skills</h5>
                   <div className="d-flex flex-wrap gap-2 mb-4">
                     {job.skills.map((skill, idx) => (
-                      <Badge key={idx} variant="secondary" className="bg-opacity-10 text-body">
+                      <Badge key={idx} variant="sage">
                         {skill}
                       </Badge>
                     ))}
@@ -193,7 +193,7 @@ const JobDetails = () => {
               
               {job.benefits && (
                 <>
-                  <h5 className="fw-bold mb-3">Benefits & Perks</h5>
+                  <h5 className="fw-bold mb-3 text-walnut">Benefits & Perks</h5>
                   <ul className="text-body lh-lg mb-4 ps-3">
                     {job.benefits.map((item, idx) => <li key={idx} className="mb-2">{item}</li>)}
                   </ul>
@@ -204,33 +204,33 @@ const JobDetails = () => {
 
           {/* Right Column (Sidebar Summary) */}
           <div className="col-lg-4">
-            <div className="bg-light p-4 rounded border border-standard shadow-sm sticky-top" style={{ top: '100px' }}>
-              <h5 className="fw-bold mb-4">Job Summary</h5>
+            <div className="minimal-card p-4 sticky-top" style={{ top: '100px' }}>
+              <h5 className="fw-bold mb-4 text-walnut">Job Summary</h5>
               
               <ul className="list-unstyled mb-4 d-flex flex-column gap-3">
                 <li className="d-flex align-items-start gap-3">
-                  <div className="bg-white p-2 rounded shadow-sm text-primary"><span role="img" aria-label="money">💵</span></div>
+                  <div className="bg-sage-subtle p-2 rounded shadow-sm text-sage"><span role="img" aria-label="money">💵</span></div>
                   <div>
                     <span className="d-block text-meta mb-1">Salary</span>
-                    <span className="fw-medium text-dark">{job.salary}</span>
+                    <span className="fw-bold text-amber">{job.salary}</span>
                   </div>
                 </li>
                 <li className="d-flex align-items-start gap-3">
-                  <div className="bg-white p-2 rounded shadow-sm text-primary"><span role="img" aria-label="location">📍</span></div>
+                  <div className="bg-sage-subtle p-2 rounded shadow-sm text-sage"><span role="img" aria-label="location">📍</span></div>
                   <div>
                     <span className="d-block text-meta mb-1">Location</span>
                     <span className="fw-medium text-dark">{job.location}</span>
                   </div>
                 </li>
                 <li className="d-flex align-items-start gap-3">
-                  <div className="bg-white p-2 rounded shadow-sm text-primary"><span role="img" aria-label="type">💼</span></div>
+                  <div className="bg-sage-subtle p-2 rounded shadow-sm text-sage"><span role="img" aria-label="type">💼</span></div>
                   <div>
                     <span className="d-block text-meta mb-1">Job Type</span>
                     <span className="fw-medium text-dark">{job.jobType}</span>
                   </div>
                 </li>
                 <li className="d-flex align-items-start gap-3">
-                  <div className="bg-white p-2 rounded shadow-sm text-primary"><span role="img" aria-label="category">📂</span></div>
+                  <div className="bg-sage-subtle p-2 rounded shadow-sm text-sage"><span role="img" aria-label="category">📂</span></div>
                   <div>
                     <span className="d-block text-meta mb-1">Category</span>
                     <span className="fw-medium text-dark">{job.category}</span>
@@ -239,7 +239,7 @@ const JobDetails = () => {
               </ul>
               
               {applied ? (
-                <div className="alert alert-success d-flex align-items-center gap-2 mb-0 border-0 shadow-sm" role="alert">
+                <div className="status-badge status-success d-flex align-items-center justify-content-center py-2 px-3 w-100" role="alert">
                   ✓ You have applied for this position
                 </div>
               ) : (

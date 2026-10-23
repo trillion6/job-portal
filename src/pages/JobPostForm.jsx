@@ -91,7 +91,7 @@ const JobPostForm = () => {
             <i className="bi bi-arrow-left"></i>
           </Button>
           <div>
-            <h1 className="h2 fw-bold mb-1">{isEditing ? 'Edit Job Posting' : 'Post a New Job'}</h1>
+            <h1 className="h2 fw-bold mb-1 text-walnut">{isEditing ? 'Edit Job Posting' : 'Post a New Job'}</h1>
             <p className="text-secondary mb-0">Fill in the details to publish a new open position.</p>
           </div>
         </div>
@@ -99,14 +99,14 @@ const JobPostForm = () => {
         <GlassCard className="p-4 p-md-5 border-standard shadow-sm">
           <form onSubmit={(e) => handleSubmit(e, 'Active')}>
             
-            <h5 className="fw-bold mb-4">Job Basics</h5>
+            <h5 className="fw-bold mb-4 text-walnut">Job Basics</h5>
             
             <div className="row g-4 mb-5">
               <div className="col-12 col-md-6">
                 <label className="form-label text-meta fw-medium">Job Title <span className="text-danger">*</span></label>
                 <input 
                   type="text" 
-                  className="form-control form-control-material bg-light" 
+                  className="form-control form-control-material" 
                   name="title" 
                   value={formData.title} 
                   onChange={handleChange} 
@@ -199,13 +199,13 @@ const JobPostForm = () => {
               </div>
             </div>
 
-            <h5 className="fw-bold mb-4">Job Details</h5>
+            <h5 className="fw-bold mb-4 text-walnut">Job Details</h5>
             
             <div className="row g-4 mb-5">
               <div className="col-12">
                 <label className="form-label text-meta fw-medium">Job Description <span className="text-danger">*</span></label>
                 <textarea 
-                  className="form-control form-control-material bg-light" 
+                  className="form-control form-control-material" 
                   rows="4" 
                   name="description" 
                   value={formData.description} 
@@ -218,7 +218,7 @@ const JobPostForm = () => {
               <div className="col-12 col-md-6">
                 <label className="form-label text-meta fw-medium">Key Responsibilities (One per line)</label>
                 <textarea 
-                  className="form-control form-control-material bg-light" 
+                  className="form-control form-control-material" 
                   rows="5" 
                   value={respStr} 
                   onChange={handleRespChange}
@@ -229,7 +229,7 @@ const JobPostForm = () => {
               <div className="col-12 col-md-6">
                 <label className="form-label text-meta fw-medium">Requirements (One per line)</label>
                 <textarea 
-                  className="form-control form-control-material bg-light" 
+                  className="form-control form-control-material" 
                   rows="5" 
                   value={reqsStr} 
                   onChange={handleReqsChange}

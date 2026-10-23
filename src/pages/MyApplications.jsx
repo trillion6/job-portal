@@ -31,9 +31,9 @@ const MyApplications = () => {
     <PageContainer>
       <Section className="py-5">
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="h3 fw-bold mb-0">My Applications</h1>
+          <h1 className="h3 fw-bold mb-0 text-walnut">My Applications</h1>
           {applications.length > 0 && (
-            <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 fs-6 rounded-pill">
+            <span className="status-badge badge-sage px-3 py-2 fs-6 rounded-pill">
               {applications.length} total
             </span>
           )}
@@ -45,7 +45,7 @@ const MyApplications = () => {
               <div className="col-md-8 col-lg-6">
                 <input 
                   type="text" 
-                  className="form-control form-control-lg border-standard" 
+                  className="form-control form-control-material" 
                   placeholder="Search by job title or company..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -53,7 +53,7 @@ const MyApplications = () => {
               </div>
               <div className="col-md-4 col-lg-3">
                 <select 
-                  className="form-select form-select-lg border-standard"
+                  className="form-select form-control-material"
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                 >
@@ -71,10 +71,10 @@ const MyApplications = () => {
                     <Card className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4 p-4">
                       <div>
                         <div className="d-flex flex-wrap align-items-center gap-3 mb-2">
-                          <h4 className="fw-bold mb-0">{app.jobTitle}</h4>
+                          <h4 className="fw-bold mb-0 text-dark">{app.jobTitle}</h4>
                           <ApplicationStatusBadge status={app.status} />
                         </div>
-                        <p className="text-primary fs-5 mb-3">{app.company}</p>
+                        <p className="text-walnut fs-5 fw-semibold mb-3">{app.company}</p>
                         
                         <div className="text-secondary d-flex flex-wrap gap-4 text-sm">
                           <span><strong>Applicant:</strong> {app.applicantName}</span>
@@ -94,15 +94,15 @@ const MyApplications = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-5 bg-light rounded border border-standard border-dashed">
+              <div className="text-center py-5 bg-subtle rounded border border-standard">
                 <p className="text-secondary mb-0">No applications match your filters.</p>
               </div>
             )}
           </>
         ) : (
-          <div className="text-center py-5 px-3 bg-light rounded border border-standard border-dashed">
+          <div className="text-center py-5 px-3 bg-subtle rounded border border-standard">
             <div className="fs-1 mb-3">📄</div>
-            <h4 className="fw-bold mb-2">No applications yet</h4>
+            <h4 className="fw-bold mb-2 text-walnut">No applications yet</h4>
             <p className="text-secondary mb-4">
               You haven't applied to any jobs yet. Start exploring and find your dream job!
             </p>

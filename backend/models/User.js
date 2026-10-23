@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add an email'],
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
@@ -21,6 +22,64 @@ const userSchema = mongoose.Schema(
       enum: ['jobseeker', 'recruiter', 'admin'],
       default: 'jobseeker',
     },
+    status: {
+      type: String,
+      enum: ['Active', 'Suspended'],
+      default: 'Active',
+    },
+    title: {
+      type: String,
+      default: 'Software Developer',
+    },
+    location: {
+      type: String,
+      default: 'Chandigarh',
+    },
+    phone: {
+      type: String,
+      default: '',
+    },
+    experience: {
+      type: String,
+      default: '2 Years',
+    },
+    education: {
+      type: String,
+      default: 'MCA',
+    },
+    skills: {
+      type: [String],
+      default: ['Python', 'JavaScript', 'React'],
+    },
+    bio: {
+      type: String,
+      default: '',
+    },
+    linkedin: {
+      type: String,
+      default: '',
+    },
+    portfolio: {
+      type: String,
+      default: '',
+    },
+    savedJobs: {
+      type: [String],
+      default: [],
+    },
+    resume: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {
+        personal: {},
+        summary: '',
+        skills: [],
+        education: [],
+        experience: [],
+        projects: [],
+        certifications: [],
+        achievements: [],
+      },
+    },
   },
   {
     timestamps: true,
@@ -28,9 +87,9 @@ const userSchema = mongoose.Schema(
 );
 
 // Encrypt password using bcrypt
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
   if (!this.isModified('password')) {
-    next();
+    return;
   }
 
   const salt = await bcrypt.genSalt(10);

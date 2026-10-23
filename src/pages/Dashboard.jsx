@@ -11,17 +11,28 @@ import ApplicationStatusBadge from '../components/ApplicationStatusBadge';
 import { useJobPortal } from '../context/JobPortalContext';
 
 // Reusable Stat Card Component
-const DashboardStatCard = ({ icon, title, value, variant = "primary" }) => (
-  <GlassCard className="p-4 h-100 border-standard shadow-sm d-flex align-items-center gap-3">
-    <div className={`bg-${variant} bg-opacity-10 text-${variant} rounded p-3 d-flex justify-content-center align-items-center fs-3`}>
-      {icon}
-    </div>
-    <div>
-      <p className="text-meta mb-1">{title}</p>
-      <h3 className="fw-bold mb-0 text-dark">{value}</h3>
-    </div>
-  </GlassCard>
-);
+const DashboardStatCard = ({ icon, title, value, variant = "primary" }) => {
+  const getBadgeClass = () => {
+    switch (variant) {
+      case 'success': return 'bg-success text-success border border-success';
+      case 'warning': return 'bg-warning text-warning border border-warning';
+      case 'info': return 'bg-info text-info border border-info';
+      default: return 'bg-sage-subtle text-sage border border-sage';
+    }
+  };
+
+  return (
+    <GlassCard className="p-4 h-100 border-standard shadow-sm d-flex align-items-center gap-3">
+      <div className={`rounded p-3 d-flex justify-content-center align-items-center fs-3 ${getBadgeClass()}`} style={{ width: '56px', height: '56px' }}>
+        {icon}
+      </div>
+      <div>
+        <p className="text-meta mb-1">{title}</p>
+        <h3 className="fw-bold mb-0 text-dark">{value}</h3>
+      </div>
+    </GlassCard>
+  );
+};
 
 const Dashboard = () => {
   const { profile, applications, savedJobs, activity, toggleSaveJob, jobs } = useJobPortal();
@@ -56,11 +67,11 @@ const Dashboard = () => {
       // Check if job skills intersect with profile skills
       return job.skills && job.skills.some(skill => profile.skills.includes(skill));
     }).slice(0, 3);
-  }, [profile.skills]);
+  }, [profile.skills, jobs]);
 
   // Saved Jobs Details
   const savedJobDetails = useMemo(() => {
-    return jobs.filter(job => savedJobs.has(job.id)).slice(0, 3);
+    return jobs.filter(job => savedJobs.has(String(job.id || job._id))).slice(0, 3);
   }, [savedJobs, jobs]);
 
   return (
@@ -69,7 +80,7 @@ const Dashboard = () => {
         {/* Welcome Section */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-4">
           <div>
-            <h1 className="h2 fw-bold mb-2">Welcome back, {profile.name.split(' ')[0]} 👋</h1>
+            <h1 className="h2 fw-bold mb-2 text-walnut">Welcome back, {profile.name.split(' ')[0]} 👋</h1>
             <p className="text-secondary fs-5 mb-0">Find your next opportunity and take the next step in your career.</p>
           </div>
           <div className="d-flex gap-2">
@@ -105,14 +116,14 @@ const Dashboard = () => {
             {/* Recent Applications */}
             <Card className="p-4 border-standard shadow-sm">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h4 className="fw-bold mb-0">Recent Applications</h4>
-                <Link to="/applications" className="text-decoration-none small fw-medium">View All</Link>
+                <h4 className="fw-bold mb-0 text-walnut">Recent Applications</h4>
+                <Link to="/applications" className="text-decoration-none small fw-semibold text-amber hover-primary">View All</Link>
               </div>
               
               {recentApplications.length > 0 ? (
                 <div className="table-responsive">
                   <table className="table table-hover align-middle mb-0">
-                    <thead className="table-light text-meta">
+                    <thead className="text-meta">
                       <tr>
                         <th>Job Title</th>
                         <th>Company</th>
@@ -123,7 +134,7 @@ const Dashboard = () => {
                     <tbody className="border-top-0">
                       {recentApplications.map(app => (
                         <tr key={app.id}>
-                          <td className="fw-medium">{app.jobTitle}</td>
+                          <td className="fw-medium text-dark">{app.jobTitle}</td>
                           <td className="text-secondary">{app.company}</td>
                           <td className="text-secondary">{app.appliedDate}</td>
                           <td><ApplicationStatusBadge status={app.status} /></td>
@@ -133,7 +144,7 @@ const Dashboard = () => {
                   </table>
                 </div>
               ) : (
-                <div className="text-center py-4 bg-light rounded border border-standard border-dashed">
+                <div className="text-center py-4 bg-subtle rounded border border-standard">
                   <p className="text-secondary mb-0">No recent applications.</p>
                 </div>
               )}
@@ -142,8 +153,8 @@ const Dashboard = () => {
             {/* Saved / Recommended Jobs */}
             <Card className="p-4 border-standard shadow-sm">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h4 className="fw-bold mb-0">Recommended for You</h4>
-                <Link to="/jobs" className="text-decoration-none small fw-medium">View More</Link>
+                <h4 className="fw-bold mb-0 text-walnut">Recommended for You</h4>
+                <Link to="/jobs" className="text-decoration-none small fw-semibold text-amber hover-primary">View More</Link>
               </div>
               
               {recommendedJobs.length > 0 ? (
@@ -155,7 +166,7 @@ const Dashboard = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-4 bg-light rounded border border-standard border-dashed">
+                <div className="text-center py-4 bg-subtle rounded border border-standard">
                   <p className="text-secondary mb-0">Add skills to your profile to get recommendations.</p>
                 </div>
               )}
@@ -171,8 +182,8 @@ const Dashboard = () => {
               <div className="d-flex align-items-center gap-3 mb-4">
                 <Avatar name={profile.name} size={64} />
                 <div>
-                  <h4 className="fw-bold mb-1">{profile.name}</h4>
-                  <p className="text-primary mb-0">{profile.title}</p>
+                  <h4 className="fw-bold mb-1 text-walnut">{profile.name}</h4>
+                  <p className="text-amber fw-semibold mb-0">{profile.title}</p>
                 </div>
               </div>
               

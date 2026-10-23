@@ -1,69 +1,158 @@
-/* Minimal UI & Glassmorphism Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* ==========================================================================
+   Nexora Job Portal — Sage, Walnut & Amber Design System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette - Light Mode */
-  --primary-color: #4f46e5;
-  --primary-hover: #4338ca;
-  
-  --bg-color: #F8FAFC;
-  --surface-color: #FFFFFF;
-  
-  --text-dark: #1E293B;
-  --text-body: #334155;
-  --text-muted: #64748B;
-  
-  --border-light: rgba(255, 255, 255, 0.2);
-  --border-standard: #E2E8F0;
-  
-  /* Semantic Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --info: #3b82f6;
-  
-  /* Glass Variants - Light */
-  --glass-light: rgba(255, 255, 255, 0.4);
-  --glass-standard: rgba(255, 255, 255, 0.75);
-  --glass-featured: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  /* Core Brand Tokens */
+  --brand-sage: #87A96B;
+  --brand-walnut: #5A3E2B;
+  --brand-amber: #D5851F;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  /* Light Mode Tokens */
+  --bg-color: #FAF8F4;
+  --surface-color: #FFFFFF;
+  --surface-subtle: #F0ECE4;
+  --surface-elevated: #FFFFFF;
+
+  --text-dark: #30271F;
+  --text-body: #30271F;
+  --text-secondary: #5A3E2B;
+  --text-muted: #665C52;
+
+  --border-standard: #D8D1C5;
+  --border-light: rgba(90, 62, 43, 0.08);
+
+  /* Primary Button (Amber) */
+  --btn-primary-bg: #D5851F;
+  --btn-primary-text: #302014;
+  --btn-primary-hover: #B86D12;
+
+  /* Secondary Button (Pale Sage) */
+  --btn-secondary-bg: #E4EEDC;
+  --btn-secondary-text: #304523;
+  --btn-secondary-hover: #D4E3C8;
+
+  /* Focus & Accents */
+  --focus-ring: #5A3E2B;
+  --primary-color: #D5851F;
+  --primary-hover: #B86D12;
+
+  /* Semantic Status Colors (Light) */
+  --status-success-text: #166534;
+  --status-success-bg: #DCFCE7;
+  --status-success-border: #86EFAC;
+
+  --status-warning-text: #854D0E;
+  --status-warning-bg: #FEF3C7;
+  --status-warning-border: #FCD34D;
+
+  --status-error-text: #B91C1C;
+  --status-error-bg: #FEE2E2;
+  --status-error-border: #FCA5A5;
+
+  --status-info-text: #1D4ED8;
+  --status-info-bg: #DBEAFE;
+  --status-info-border: #93C5FD;
+
+  /* Organic Glassmorphism (Light) */
+  --glass-light: rgba(255, 255, 255, 0.65);
+  --glass-standard: rgba(255, 255, 255, 0.85);
+  --glass-featured: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(216, 209, 197, 0.65);
+  --glass-shadow: 0 12px 32px 0 rgba(90, 62, 43, 0.06);
+
+  /* Elevations */
+  --shadow-sm: 0 1px 3px rgba(90, 62, 43, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(90, 62, 43, 0.08);
+  --shadow-lg: 0 12px 24px -4px rgba(90, 62, 43, 0.12);
+
+  /* Bootstrap Variable Bindings */
+  --bs-body-bg: var(--bg-color);
+  --bs-body-color: var(--text-dark);
+  --bs-primary: var(--brand-amber);
+  --bs-secondary: var(--btn-secondary-bg);
+  --bs-border-color: var(--border-standard);
+  --bs-card-bg: var(--surface-color);
 }
 
 [data-bs-theme="dark"] {
-  /* Color Palette - Dark Mode */
-  --primary-color: #6366f1;
-  --primary-hover: #818cf8;
-  
-  --bg-color: #0f172a;
-  --surface-color: #1e293b;
-  
-  --text-dark: #f8fafc;
-  --text-body: #cbd5e1;
-  --text-muted: #94a3b8;
-  
-  --border-light: rgba(255, 255, 255, 0.05);
-  --border-standard: #334155;
-  
-  /* Glass Variants - Dark */
-  --glass-light: rgba(30, 41, 59, 0.4);
-  --glass-standard: rgba(30, 41, 59, 0.75);
-  --glass-featured: rgba(30, 41, 59, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-  
-  /* Shadows - Dark */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  /* Dark Mode Tokens — Rich walnut & forest tones */
+  --brand-sage: #9BC47E;
+  --brand-walnut: #8B654A;
+  --brand-amber: #E6A443;
+
+  --bg-color: #171A14;
+  --surface-color: #22261D;
+  --surface-elevated: #2D3226;
+  --surface-subtle: #2D3226;
+
+  --text-dark: #F7F3EB;
+  --text-body: #F7F3EB;
+  --text-secondary: #D8D0C2;
+  --text-muted: #B7B0A3;
+
+  --border-standard: #45483B;
+  --border-light: rgba(255, 255, 255, 0.08);
+
+  /* Primary Button (Amber in Dark Mode) */
+  --btn-primary-bg: #E6A443;
+  --btn-primary-text: #302014;
+  --btn-primary-hover: #F0B75E;
+
+  /* Secondary Button (Dark Sage) */
+  --btn-secondary-bg: #34462C;
+  --btn-secondary-text: #D5E7C5;
+  --btn-secondary-hover: #405638;
+
+  /* Focus & Accents */
+  --focus-ring: #E6A443;
+  --primary-color: #E6A443;
+  --primary-hover: #F0B75E;
+
+  /* Semantic Status Colors (Dark) */
+  --status-success-text: #86EFAC;
+  --status-success-bg: #052E16;
+  --status-success-border: #166534;
+
+  --status-warning-text: #FCD34D;
+  --status-warning-bg: #422006;
+  --status-warning-border: #854D0E;
+
+  --status-error-text: #FCA5A5;
+  --status-error-bg: #450A0A;
+  --status-error-border: #991B1B;
+
+  --status-info-text: #93C5FD;
+  --status-info-bg: #172554;
+  --status-info-border: #1D4ED8;
+
+  /* Organic Glassmorphism (Dark) */
+  --glass-light: rgba(34, 38, 29, 0.65);
+  --glass-standard: rgba(34, 38, 29, 0.85);
+  --glass-featured: rgba(45, 50, 38, 0.95);
+  --glass-border: rgba(69, 72, 59, 0.65);
+  --glass-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.45);
+
+  /* Elevations */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.5);
+
+  /* Bootstrap Variable Bindings (Dark) */
+  --bs-body-bg: var(--bg-color);
+  --bs-body-color: var(--text-dark);
+  --bs-primary: var(--brand-amber);
+  --bs-secondary: var(--btn-secondary-bg);
+  --bs-border-color: var(--border-standard);
+  --bs-card-bg: var(--surface-color);
 }
 
-/* Ensure smooth theme transitions (disabled if prefers-reduced-motion) */
+/* ==========================================================================
+   Base & Typography
+   ========================================================================== */
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: var(--bg-color);
@@ -74,154 +163,485 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Typography Hierarchy */
 h1, h2, h3, h4, h5, h6, .hero-heading, .card-title, .page-heading, .section-heading {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   color: var(--text-dark);
   font-weight: 700;
-  line-height: 1.2;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
 }
 
-.hero-heading { font-size: clamp(2.5rem, 5vw, 4rem); }
-.page-heading { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; }
-.section-heading { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; }
-.card-title { font-size: 1.25rem; font-weight: 600; }
+.hero-heading {
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-weight: 800;
+  color: var(--brand-walnut);
+}
+
+[data-bs-theme="dark"] .hero-heading {
+  color: var(--text-dark);
+}
+
+.page-heading { font-size: clamp(1.85rem, 3.5vw, 2.75rem); font-weight: 700; }
+.section-heading { font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 700; }
+.card-title { font-size: 1.2rem; font-weight: 700; }
 .text-body { font-size: 1rem; color: var(--text-body); }
-.text-secondary { font-size: 0.95rem; color: var(--text-muted) !important; }
-.text-label { font-size: 0.875rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.05em; }
-.text-meta { font-size: 0.8rem; color: var(--text-muted); }
+.text-secondary { font-size: 0.95rem; color: var(--text-secondary) !important; }
+.text-muted { font-size: 0.875rem; color: var(--text-muted) !important; }
+.text-label { font-size: 0.8rem; font-weight: 700; color: var(--brand-walnut); text-transform: uppercase; letter-spacing: 0.08em; }
+[data-bs-theme="dark"] .text-label { color: var(--text-secondary); }
+.text-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+/* Brand Text Classes */
+.text-walnut { color: var(--brand-walnut) !important; }
+.text-sage { color: var(--brand-sage) !important; }
+.text-amber { color: var(--brand-amber) !important; }
 
 .hover-primary {
   transition: color 0.2s ease;
 }
-.hover-primary:hover { color: var(--primary-color) !important; cursor: pointer; }
+.hover-primary:hover { 
+  color: var(--brand-amber) !important; 
+  cursor: pointer; 
+}
 
-/* Custom Background Overrides for Bootstrap Compatibility */
+/* ==========================================================================
+   Surfaces & Bootstrap Overrides
+   ========================================================================== */
+
 .bg-white {
   background-color: var(--surface-color) !important;
 }
+
 .bg-light {
-  background-color: var(--bg-color) !important;
-}
-.text-dark {
-  color: var(--text-dark) !important;
-}
-.text-muted {
-  color: var(--text-muted) !important;
+  background-color: var(--surface-subtle) !important;
 }
 
-/* Glassmorphism System */
-.glass-card {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  box-shadow: var(--glass-shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+.bg-subtle {
+  background-color: var(--surface-subtle) !important;
 }
-.glass-light { background: var(--glass-light); }
-.glass-standard { background: var(--glass-standard); }
-.glass-featured { background: var(--glass-featured); border: 1px solid var(--primary-color); }
 
-/* Standard Minimal Card */
+.bg-walnut {
+  background-color: var(--brand-walnut) !important;
+  color: #FAF8F4 !important;
+}
+
+.bg-sage {
+  background-color: var(--brand-sage) !important;
+  color: #302014 !important;
+}
+
+.bg-sage-subtle {
+  background-color: var(--btn-secondary-bg) !important;
+  color: var(--btn-secondary-text) !important;
+}
+
+.bg-amber {
+  background-color: var(--brand-amber) !important;
+  color: var(--btn-primary-text) !important;
+}
+
+.border-standard {
+  border-color: var(--border-standard) !important;
+}
+
+.border-sage {
+  border-color: var(--brand-sage) !important;
+}
+
+.border-walnut {
+  border-color: var(--brand-walnut) !important;
+}
+
+.border-amber {
+  border-color: var(--brand-amber) !important;
+}
+
+/* Minimal Card & Glass Surfaces */
 .minimal-card {
   background-color: var(--surface-color);
   border: 1px solid var(--border-standard);
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .minimal-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-color: var(--primary-color);
+  border-color: var(--brand-sage);
 }
 
-/* Material-style Interactive Components */
+.glass-card {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.glass-light { background: var(--glass-light); }
+.glass-standard { background: var(--glass-standard); }
+.glass-featured { 
+  background: var(--glass-featured); 
+  border: 1.5px solid var(--brand-amber); 
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
 .btn-material {
-  border-radius: 8px;
+  border-radius: 9px;
+  font-weight: 600;
   transition: all 0.2s ease;
-  font-weight: 500;
-  text-transform: none;
-  box-shadow: var(--shadow-sm);
+  padding: 0.6rem 1.25rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  letter-spacing: 0.01em;
 }
+
 .btn-material:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
+
 .btn-material:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
-.btn-material:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
-.btn-primary-custom {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: #fff;
+/* Primary Button (Amber Glow) */
+.btn-primary-custom,
+.btn-primary {
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
 }
-.btn-primary-custom:hover:not(:disabled),
-.btn-primary-custom:focus:not(:disabled) {
-  background-color: var(--primary-hover);
-  border-color: var(--primary-hover);
-  color: #fff;
+.btn-primary-custom:hover,
+.btn-primary-custom:focus,
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--btn-primary-hover) !important;
+  border-color: var(--btn-primary-hover) !important;
+  color: var(--btn-primary-text) !important;
 }
 
-/* Material Form Controls */
+/* Secondary Button (Pale Sage) */
+.btn-secondary-custom,
+.btn-secondary {
+  background-color: var(--btn-secondary-bg) !important;
+  border-color: var(--btn-secondary-bg) !important;
+  color: var(--btn-secondary-text) !important;
+}
+.btn-secondary-custom:hover,
+.btn-secondary-custom:focus,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--btn-secondary-hover) !important;
+  border-color: var(--btn-secondary-hover) !important;
+  color: var(--btn-secondary-text) !important;
+}
+
+/* Outline Buttons */
+.btn-outline-primary {
+  border: 1.5px solid var(--brand-amber) !important;
+  color: var(--brand-amber) !important;
+  background-color: transparent !important;
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--brand-amber) !important;
+  color: var(--btn-primary-text) !important;
+}
+
+.btn-outline-secondary {
+  border: 1.5px solid var(--border-standard) !important;
+  color: var(--text-secondary) !important;
+  background-color: transparent !important;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--surface-subtle) !important;
+  color: var(--text-dark) !important;
+}
+
+.btn-outline-sage {
+  border: 1.5px solid var(--brand-sage) !important;
+  color: var(--brand-sage) !important;
+  background-color: transparent !important;
+}
+.btn-outline-sage:hover {
+  background-color: var(--brand-sage) !important;
+  color: #302014 !important;
+}
+
+/* ==========================================================================
+   Form Controls
+   ========================================================================== */
+
+.form-control,
+.form-select,
 .form-control-material {
-  border-radius: 8px;
+  border-radius: 9px;
   border: 1px solid var(--border-standard);
-  padding: 0.75rem 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-  background-color: var(--surface-color);
+  background-color: var(--surface-subtle);
   color: var(--text-dark);
-}
-.form-control-material:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.15);
-  outline: none;
-}
-.form-control-material.is-valid { border-color: var(--success); }
-.form-control-material.is-invalid { border-color: var(--danger); }
-.form-control-material:disabled {
-  background-color: var(--bg-color);
-  opacity: 0.8;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-/* Floating Label Overrides for standard Bootstrap float */
-.form-floating > .form-control, .form-floating > .form-select {
-  border-radius: 8px;
-  border: 1px solid var(--border-standard);
+.form-control:focus,
+.form-select:focus,
+.form-control-material:focus {
+  border-color: var(--focus-ring);
   background-color: var(--surface-color);
+  box-shadow: 0 0 0 3px rgba(213, 133, 31, 0.2);
+  outline: none;
   color: var(--text-dark);
 }
-.form-floating > .form-control:focus, .form-floating > .form-select:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.15);
+
+.form-control::placeholder {
+  color: var(--text-muted);
 }
+
+.form-floating > .form-control,
+.form-floating > .form-select {
+  border-radius: 9px;
+  border: 1px solid var(--border-standard);
+  background-color: var(--surface-subtle);
+  color: var(--text-dark);
+}
+
+.form-floating > .form-control:focus,
+.form-floating > .form-select:focus {
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px rgba(213, 133, 31, 0.2);
+}
+
 .form-floating > label {
   color: var(--text-muted);
 }
 
-/* Focus & Accessibility */
+/* Custom Checkboxes and Radios (Sage Green Accent) */
+.form-check-input {
+  background-color: var(--surface-subtle);
+  border: 1.5px solid var(--border-standard);
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-check-input:checked {
+  background-color: var(--brand-sage);
+  border-color: var(--brand-sage);
+}
+
+.form-check-input:focus {
+  border-color: var(--brand-sage);
+  box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.25);
+}
+
+.form-check-label {
+  color: var(--text-body);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Semantic Status Badges & Alerts
+   ========================================================================== */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  line-height: 1;
+}
+
+.status-success {
+  background-color: var(--status-success-bg) !important;
+  color: var(--status-success-text) !important;
+  border: 1px solid var(--status-success-border) !important;
+}
+
+.status-warning {
+  background-color: var(--status-warning-bg) !important;
+  color: var(--status-warning-text) !important;
+  border: 1px solid var(--status-warning-border) !important;
+}
+
+.status-error,
+.status-danger {
+  background-color: var(--status-error-bg) !important;
+  color: var(--status-error-text) !important;
+  border: 1px solid var(--status-error-border) !important;
+}
+
+.status-info {
+  background-color: var(--status-info-bg) !important;
+  color: var(--status-info-text) !important;
+  border: 1px solid var(--status-info-border) !important;
+}
+
+/* Bootstrap Alert Overrides */
+.alert-success {
+  background-color: var(--status-success-bg) !important;
+  color: var(--status-success-text) !important;
+  border-color: var(--status-success-border) !important;
+}
+
+.alert-warning {
+  background-color: var(--status-warning-bg) !important;
+  color: var(--status-warning-text) !important;
+  border-color: var(--status-warning-border) !important;
+}
+
+.alert-danger {
+  background-color: var(--status-error-bg) !important;
+  color: var(--status-error-text) !important;
+  border-color: var(--status-error-border) !important;
+}
+
+.alert-info {
+  background-color: var(--status-info-bg) !important;
+  color: var(--status-info-text) !important;
+  border-color: var(--status-info-border) !important;
+}
+
+/* Bootstrap Semantic Text and Background Helpers */
+.text-success { color: var(--status-success-text) !important; }
+.text-warning { color: var(--status-warning-text) !important; }
+.text-danger { color: var(--status-error-text) !important; }
+.text-info { color: var(--status-info-text) !important; }
+
+/* Brand Accents */
+.badge-sage {
+  background-color: var(--btn-secondary-bg) !important;
+  color: var(--btn-secondary-text) !important;
+  border: 1px solid rgba(135, 169, 107, 0.35) !important;
+}
+
+.badge-amber {
+  background-color: rgba(213, 133, 31, 0.15) !important;
+  color: var(--brand-amber) !important;
+  border: 1px solid rgba(213, 133, 31, 0.35) !important;
+}
+
+.badge-walnut {
+  background-color: rgba(90, 62, 43, 0.12) !important;
+  color: var(--brand-walnut) !important;
+  border: 1px solid rgba(90, 62, 43, 0.25) !important;
+}
+
+/* ==========================================================================
+   Modals, Dropdowns, Tables & Lists
+   ========================================================================== */
+
+.modal-content {
+  background-color: var(--surface-color);
+  color: var(--text-dark);
+  border: 1px solid var(--border-standard);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-standard);
+}
+
+.dropdown-menu {
+  background-color: var(--surface-elevated);
+  color: var(--text-dark);
+  border: 1px solid var(--border-standard);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 0.5rem;
+}
+
+.dropdown-item {
+  color: var(--text-dark);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+}
+
+.table {
+  color: var(--text-dark);
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: var(--surface-subtle);
+  --bs-table-hover-bg: var(--btn-secondary-bg);
+  --bs-table-border-color: var(--border-standard);
+}
+
+.table > thead {
+  background-color: var(--surface-subtle);
+  color: var(--brand-walnut);
+}
+
+[data-bs-theme="dark"] .table > thead {
+  color: var(--text-dark);
+}
+
+.list-group-item {
+  background-color: var(--surface-color);
+  border-color: var(--border-standard);
+  color: var(--text-dark);
+}
+
+/* Nav Pills & Tabs */
+.nav-pills .nav-link {
+  color: var(--text-secondary);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: var(--brand-sage);
+  color: #171A14 !important;
+}
+
+.nav-tabs {
+  border-bottom-color: var(--border-standard);
+}
+
+.nav-tabs .nav-link {
+  color: var(--text-secondary);
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--brand-walnut);
+  background-color: var(--surface-color);
+  border-color: var(--border-standard) var(--border-standard) var(--surface-color);
+}
+
+[data-bs-theme="dark"] .nav-tabs .nav-link.active {
+  color: var(--brand-amber);
+}
+
+/* ==========================================================================
+   Focus & Accessibility
+   ========================================================================== */
+
 *:focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -229,7 +649,32 @@ h1, h2, h3, h4, h5, h6, .hero-heading, .card-title, .page-heading, .section-head
   }
 }
 
-/* --- Print Styles --- */
+/* ==========================================================================
+   Custom Scrollbar
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-standard);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-sage);
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
 @media print {
   body {
     background: white !important;

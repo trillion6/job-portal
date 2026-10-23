@@ -11,16 +11,16 @@ const SavedJobs = () => {
 
   // Find all job objects that match the saved IDs
   const savedJobDetails = useMemo(() => {
-    return jobs.filter(job => savedJobs.has(job.id));
+    return jobs.filter(job => savedJobs.has(String(job.id || job._id)));
   }, [jobs, savedJobs]);
 
   return (
     <PageContainer>
       <Section className="py-5">
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="h3 fw-bold mb-0">Saved Jobs</h1>
+          <h1 className="h3 fw-bold mb-0 text-walnut">Saved Jobs</h1>
           {savedJobDetails.length > 0 && (
-            <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 fs-6 rounded-pill">
+            <span className="status-badge badge-sage px-3 py-2 fs-6 rounded-pill">
               {savedJobDetails.length} saved
             </span>
           )}
@@ -29,7 +29,7 @@ const SavedJobs = () => {
         {savedJobDetails.length > 0 ? (
           <div className="row g-4">
             {savedJobDetails.map(job => (
-              <div className="col-md-6 col-lg-4" key={job.id}>
+              <div className="col-md-6 col-lg-4" key={job.id || job._id}>
                 <JobCard 
                   job={job} 
                   isSaved={true}
@@ -39,9 +39,9 @@ const SavedJobs = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-5 px-3 bg-light rounded border border-standard border-dashed">
+          <div className="text-center py-5 px-3 bg-subtle rounded border border-standard">
             <div className="fs-1 mb-3">🔖</div>
-            <h4 className="fw-bold mb-2">Your saved jobs will appear here</h4>
+            <h4 className="fw-bold mb-2 text-walnut">Your saved jobs will appear here</h4>
             <p className="text-secondary mb-4">
               Save interesting opportunities so you can easily find them later.
             </p>

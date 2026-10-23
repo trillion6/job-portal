@@ -1,31 +1,39 @@
 import React from 'react';
 
 const StatusBadge = ({ status, className = '' }) => {
-  let badgeClass = 'bg-secondary text-white';
+  let badgeClass = 'badge-walnut';
   
   switch (status?.toLowerCase()) {
     case 'active':
     case 'approved':
     case 'accepted':
     case 'hired':
-      badgeClass = 'bg-success text-white';
+    case 'selected':
+      badgeClass = 'status-success';
       break;
     case 'pending':
+    case 'pending review':
     case 'in review':
-    case 'interview':
-      badgeClass = 'bg-warning text-dark';
+    case 'under review':
+      badgeClass = 'status-warning';
       break;
     case 'rejected':
     case 'suspended':
     case 'closed':
-      badgeClass = 'bg-danger text-white';
+    case 'flagged':
+      badgeClass = 'status-error';
+      break;
+    case 'interview':
+    case 'shortlisted':
+    case 'applied':
+      badgeClass = 'status-info';
       break;
     default:
-      badgeClass = 'bg-secondary text-white';
+      badgeClass = 'badge-sage';
   }
 
   return (
-    <span className={`badge ${badgeClass} ${className}`}>
+    <span className={`status-badge ${badgeClass} ${className}`}>
       {status || 'Unknown'}
     </span>
   );

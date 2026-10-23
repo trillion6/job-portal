@@ -124,7 +124,7 @@ const Jobs = () => {
         <h1 className="page-heading mb-2">Find Your Next Opportunity</h1>
         <p className="text-secondary">Discover thousands of jobs perfectly matched to your skills and preferences.</p>
         
-        <div className="mt-4 p-3 bg-white border border-standard rounded shadow-sm">
+        <div className="mt-4 p-3 minimal-card">
           <SearchBar onSearch={handleSearchSubmit} initialKeyword={searchTerm} initialLocation={searchLocation} />
         </div>
       </Section>
@@ -135,9 +135,9 @@ const Jobs = () => {
           <div className="col-lg-3 d-none d-lg-block">
             <div className="sticky-top" style={{ top: '100px', zIndex: 1 }}>
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="mb-0 fw-bold">Filters</h5>
+                <h5 className="mb-0 fw-bold text-walnut">Filters</h5>
                 {activeFilters.length > 0 && (
-                  <button onClick={clearAllFilters} className="btn btn-link text-decoration-none text-danger p-0 text-sm fw-medium">Clear All</button>
+                  <button onClick={clearAllFilters} className="btn btn-link text-decoration-none text-amber p-0 text-sm fw-semibold">Clear All</button>
                 )}
               </div>
               <FilterPanel filters={filters} onFilterChange={handleFilterChange} />
@@ -158,9 +158,9 @@ const Jobs = () => {
             {showMobileFilters && (
               <div className="mt-3 p-3 bg-light rounded border border-standard">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6 className="mb-0 fw-bold">Filters</h6>
+                  <h6 className="mb-0 fw-bold text-walnut">Filters</h6>
                   {activeFilters.length > 0 && (
-                    <button onClick={clearAllFilters} className="btn btn-link text-decoration-none text-danger p-0 text-sm">Clear All</button>
+                    <button onClick={clearAllFilters} className="btn btn-link text-decoration-none text-amber p-0 text-sm fw-semibold">Clear All</button>
                   )}
                 </div>
                 <FilterPanel filters={filters} onFilterChange={handleFilterChange} />
@@ -178,9 +178,14 @@ const Jobs = () => {
                 
                 {activeFilters.length > 0 && <span className="text-meta ms-md-2 d-none d-sm-inline">Active:</span>}
                 {activeFilters.map((filter, index) => (
-                  <span key={index} className="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 d-flex align-items-center gap-1 p-2 rounded-pill">
-                    {filter.label}
-                    <button onClick={filter.onRemove} className="btn-close btn-close-white" style={{ fontSize: '0.45rem', filter: 'invert(1) grayscale(100%) brightness(0)' }} aria-label="Remove filter"></button>
+                  <span key={index} className="status-badge badge-sage d-inline-flex align-items-center gap-2 px-3 py-1 shadow-sm">
+                    <span>{filter.label}</span>
+                    <i 
+                      className="bi bi-x-circle-fill hover-primary" 
+                      style={{ cursor: 'pointer', fontSize: '0.85rem' }} 
+                      onClick={filter.onRemove}
+                      title="Remove filter"
+                    ></i>
                   </span>
                 ))}
               </div>

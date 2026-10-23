@@ -15,11 +15,11 @@ const Notifications = () => {
 
   const getIcon = (type) => {
     switch (type) {
-      case 'application': return <span className="text-success fs-4">✓</span>;
-      case 'saved': return <span className="text-info fs-4">♥</span>;
-      case 'profile': return <span className="text-primary fs-4">✎</span>;
-      case 'system': return <span className="text-warning fs-4">★</span>;
-      default: return <span className="text-secondary fs-4">🔔</span>;
+      case 'application': return <span className="status-badge status-success p-2 rounded-circle fs-6">✓</span>;
+      case 'saved': return <span className="status-badge status-info p-2 rounded-circle fs-6">♥</span>;
+      case 'profile': return <span className="status-badge badge-sage p-2 rounded-circle fs-6">✎</span>;
+      case 'system': return <span className="status-badge status-warning p-2 rounded-circle fs-6">★</span>;
+      default: return <span className="status-badge badge-walnut p-2 rounded-circle fs-6">🔔</span>;
     }
   };
 
@@ -38,7 +38,7 @@ const Notifications = () => {
         <div className="col-12 col-lg-8">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <div>
-              <h2 className="fw-bold mb-1">Notifications</h2>
+              <h2 className="fw-bold mb-1 text-walnut">Notifications</h2>
               <p className="text-secondary mb-0">Stay updated on your job search</p>
             </div>
             {notifications.filter(n => !n.read).length > 0 && (
@@ -51,8 +51,8 @@ const Notifications = () => {
             )}
           </div>
 
-          <div className="card border-standard shadow-sm">
-            <div className="card-header bg-white border-bottom p-3">
+          <div className="minimal-card shadow-sm p-0 overflow-hidden">
+            <div className="card-header bg-subtle border-bottom border-standard p-3">
               <div className="d-flex gap-2">
                 <button 
                   className={`btn btn-sm ${filter === 'All' ? 'btn-primary' : 'btn-outline-secondary'}`}
@@ -80,7 +80,7 @@ const Notifications = () => {
                 filteredNotifications.map(notif => (
                   <div 
                     key={notif.id} 
-                    className={`list-group-item p-4 d-flex justify-content-between align-items-start ${notif.read ? 'bg-transparent' : 'bg-light'}`}
+                    className={`list-group-item p-4 d-flex justify-content-between align-items-start ${notif.read ? 'bg-transparent' : 'bg-subtle'}`}
                   >
                     <div className="d-flex gap-3 w-100">
                       <div className="mt-1">
@@ -95,7 +95,7 @@ const Notifications = () => {
                         </div>
                         <p className="mb-2 text-secondary">{notif.message}</p>
                         <div className="d-flex gap-3 align-items-center">
-                          <Link to={getLink(notif.type)} className="text-decoration-none small fw-medium">
+                          <Link to={getLink(notif.type)} className="text-decoration-none small fw-semibold text-amber hover-primary">
                             View details
                           </Link>
                           {!notif.read && (

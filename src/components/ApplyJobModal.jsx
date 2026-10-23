@@ -78,7 +78,9 @@ const ApplyJobModal = ({ show, onClose, job }) => {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(23, 26, 20, 0.75)',
+    backdropFilter: 'blur(8px)',
+    WebkitBackdropFilter: 'blur(8px)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -88,13 +90,14 @@ const ApplyJobModal = ({ show, onClose, job }) => {
   };
 
   const contentStyle = {
-    backgroundColor: 'white',
-    borderRadius: '12px',
+    backgroundColor: 'var(--surface-color)',
+    borderRadius: '16px',
     maxWidth: '600px',
     width: '100%',
     maxHeight: '90vh',
     overflowY: 'auto',
-    position: 'relative'
+    position: 'relative',
+    border: '1px solid var(--border-standard)'
   };
 
   return (
@@ -102,8 +105,8 @@ const ApplyJobModal = ({ show, onClose, job }) => {
       <div style={contentStyle} onClick={(e) => e.stopPropagation()} className="shadow-lg">
         
         {/* Header */}
-        <div className="d-flex justify-content-between align-items-center p-4 border-bottom">
-          <h5 className="mb-0 fw-bold">{submitted ? 'Application Successful' : `Apply for ${job.title}`}</h5>
+        <div className="d-flex justify-content-between align-items-center p-4 border-bottom border-standard">
+          <h5 className="mb-0 fw-bold text-walnut">{submitted ? 'Application Successful' : `Apply for ${job.title}`}</h5>
           <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
         </div>
 
@@ -111,8 +114,10 @@ const ApplyJobModal = ({ show, onClose, job }) => {
         <div className="p-4">
           {submitted ? (
             <div className="text-center py-4">
-              <div className="display-4 text-success mb-3">✓</div>
-              <h4 className="fw-bold mb-2">Application Submitted Successfully</h4>
+              <div className="status-badge status-success p-3 rounded-circle fs-2 mb-3 mx-auto" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                ✓
+              </div>
+              <h4 className="fw-bold mb-2 text-walnut">Application Submitted Successfully</h4>
               <p className="text-secondary mb-4">
                 You have successfully applied for the <strong>{job.title}</strong> position at <strong>{job.company}</strong>.
               </p>
@@ -120,7 +125,7 @@ const ApplyJobModal = ({ show, onClose, job }) => {
                 <Link to="/applications" className="text-decoration-none">
                   <Button variant="primary" onClick={onClose}>View My Applications</Button>
                 </Link>
-                <Button variant="outline-primary" onClick={onClose}>Continue Exploring</Button>
+                <Button variant="outline-secondary" onClick={onClose}>Continue Exploring</Button>
               </div>
             </div>
           ) : (
